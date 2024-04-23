@@ -5,10 +5,10 @@ import pandas as pd
 app = Flask(__name__)
 
 mydb = {
-  'host':"localhost",
-  'user':"root",
-  'password':"root",
-  'port':'8889',
+  'host':"vinayinstance.c3eo642a4kqa.us-east-2.rds.amazonaws.com",
+  'user':"admin",
+  'password':"root1234",
+  'port':'3306',
   'database' : 'vshirole_ADT_Final'
 }
 
