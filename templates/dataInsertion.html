@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Inventory Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            width: 300px;
+            margin: auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .error {
+            color: red;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        button {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Inventory Management Entry Form</h1>
+    <form id="inventoryForm" onsubmit="return validateForm()" action="/insert" method="post">
+        <table>
+            <tr>
+                <td><label for="invoiceId">Invoice ID:</label></td>
+                <td><input type="text" id="invoiceId" name="invoiceId" maxlength="10" required></td>
+            </tr>
+            <tr>
+                <td><label for="branch">Branch:</label></td>
+                <td>
+                    <select id="branch" name="branch" required>
+                        <option value="">Select a Branch</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="city">City:</label></td>
+                <td>
+                    <select id="city" name="city" required>
+                        <option value="">Select a City</option>
+                        <option value="Yangon">Yangon</option>
+                        <option value="Naypyitaw">Naypyitaw</option>
+                        <option value="Mandalay">Mandalay</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="customerType">Customer Type:</label></td>
+                <td>
+                    <select id="customerType" name="customerType" required>
+                        <option value="">Select Customer Type</option>
+                        <option value="Member">Member</option>
+                        <option value="Normal">Normal</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="productLine">Product Line:</label></td>
+                <td>
+                    <select id="productLine" name="productLine" required>
+                        <option value="">Select Product Line</option>
+                        <option value="Health and beauty">Health and beauty</option>
+                        <option value="Electronic accessories">Electronic accessories</option>
+                        <option value="Home and lifestyle">Home and lifestyle</option>
+                        <option value="Sports and travel">Sports and travel</option>
+                        <option value="Food and beverages">Food and beverages</option>
+                        <option value="Fashion accessories">Fashion accessories</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="unitPrice">Unit Price:</label></td>
+                <td><input type="number" id="unitPrice" name="unitPrice" step="0.01" required></td>
+            </tr>
+            <tr>
+                <td><label for="quantity">Quantity:</label></td>
+                <td><input type="number" id="quantity" name="quantity" required min="1"></td>
+            </tr>
+            <tr>
+                <td><label for="tax">Tax 5%:</label></td>
+                <td><input type="number" id="tax" name="tax" disabled></td>
+            </tr>
+            <tr>
+                <td><label for="total">Total:</label></td>
+                <td><input type="number" id="total" name="total" disabled></td>
+            </tr>
+            <tr>
+                <td><label for="date">Date:</label></td>
+                <td><input type="date" id="date" name="date" required></td>
+            </tr>
+            <tr>
+                <td><label for="payment">Payment:</label></td>
+                <td>
+                    <select id="payment" name="payment" required>
+                        <option value="">Select Payment Method</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Credit card">Credit card</option>
+                        <option value="Ewallet">Ewallet</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="rating">Rating:</label></td>
+                <td><input type="number" id="rating" name="rating" required min="0" max="10" step="0.1"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;"><button type="submit" onclick="{{ url_for('insert') }}" class="button-link-insert">Submit</button></td>
+            </tr>
+        </table>
+    </form>
+    <script>
+        function calculateFields() {
+            const unitPrice = parseFloat(document.getElementById('unitPrice').value) || 0;
+            const quantity = parseInt(document.getElementById('quantity').value) || 0;
+
+            const tax = (unitPrice * quantity) * 0.05;
+            const total = (unitPrice * quantity) + tax;
+
+            document.getElementById('tax').value = tax.toFixed(2);
+            document.getElementById('total').value = total.toFixed(2);
+        }
+
+        document.getElementById('unitPrice').addEventListener('input', calculateFields);
+        document.getElementById('quantity').addEventListener('input', calculateFields);
+
+        function validateForm() {
+            const rating = parseFloat(document.getElementById('rating').value);
+            if (rating < 0 || rating > 10) {
+                alert('Rating must be between 0 and 10.');
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

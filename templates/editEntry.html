@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Inventory Entry</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            width: 300px;
+            margin: auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        button {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Inventory Entry</h1>
+    <form action="" method="POST">
+            <tr>
+                <td><label for="invoiceId">Invoice ID:</label></td>
+                <td><input type="text" id="invoiceId" name="Invoice ID" value="{{ row['Invoice ID'] }}" readonly></td>
+            </tr>
+            <tr>
+                <td><label for="branch">Branch:</label></td>
+                <td>
+                    <select id="branch" name="branch" required>
+                        <option value="">Select a Branch</option>
+                        <option value="A" {% if row['Branch'] == 'A' %}selected{% endif %}>A</option>
+                        <option value="B" {% if row['Branch'] == 'B' %}selected{% endif %}>B</option>
+                        <option value="C" {% if row['Branch'] == 'C' %}selected{% endif %}>C</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="city">City:</label></td>
+                <td>
+                    <select id="city" name="city" required>
+                        <option value="">Select a City</option>
+                        <option value="Yangon" {% if row['City'] == 'Yangon' %}selected{% endif %}>Yangon</option>
+                        <option value="Naypyitaw" {% if row['City'] == 'Naypyitaw' %}selected{% endif %}>Naypyitaw</option>
+                        <option value="Mandalay" {% if row['City'] == 'Mandalay' %}selected{% endif %}>Mandalay</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="customerType">Customer Type:</label></td>
+                <td>
+                    <select id="customerType" name="customerType" required>
+                        <option value="">Select Customer Type</option>
+                        <option value="Member" {% if row['Customer type'] == 'Member' %}selected{% endif %}>Member</option>
+                        <option value="Normal" {% if row['Customer type'] == 'Normal' %}selected{% endif %}>Normal</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="productLine">Product Line:</label></td>
+                <td>
+                    <select id="productLine" name="productLine" required>
+                        <option value="">Select Product Line</option>
+                        <option value="Health and beauty" {% if row['Product line'] == 'Health and beauty' %}selected{% endif %}>Health and beauty</option>
+                        <option value="Electronic accessories" {% if row['Product line'] == 'Electronic accessories' %}selected{% endif %}>Electronic accessories</option>
+                        <option value="Home and lifestyle" {% if row['Product line'] == 'Home and lifestyle' %}selected{% endif %}>Home and lifestyle</option>
+                        <option value="Sports and travel" {% if row['Product line'] == 'Sports and travel' %}selected{% endif %}>Sports and travel</option>
+                        <option value="Food and beverages" {% if row['Product line'] == 'Food and beverages' %}selected{% endif %}>Food and beverages</option>
+                        <option value="Fashion accessories" {% if row['Product line'] == 'Fashion accessories' %}selected{% endif %}>Fashion accessories</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="unitPrice">Unit Price:</label></td>
+                <td><input type="number" id="unitPrice" name="Unit price" value="{{ row['Unit price'] }}" step="0.01"></td>
+            </tr>
+            <tr>
+                <td><label for="quantity">Quantity:</label></td>
+                <td><input type="number" id="quantity" name="Quantity" value="{{ row['Quantity'] }}"></td>
+            </tr>
+            <tr>
+                <td><label for="total">Total:</label></td>
+                <td><input type="number" id="total" name="Total" value="{{ row['Total'] }}" step="0.01" readonly></td>
+            </tr>
+            <tr>
+                <td><label for="date">Date:</label></td>
+                <td><input type="date" id="date" name="Date" value="{{ row['Date'] }}"></td>
+            </tr>
+            <tr>
+                <td><label for="payment">Payment:</label></td>
+                <td><input type="text" id="payment" name="Payment" value="{{ row['Payment'] }}"></td>
+            </tr>
+            <tr>
+                <td><label for="rating">Rating:</label></td>
+                <td><input type="number" id="rating" name="Rating" value="{{ row['Rating'] }}" step="0.1" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <button type="submit">Update Entry</button>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
