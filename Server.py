@@ -63,7 +63,7 @@ def insert():
         cursor = connection.cursor()
         # SQL Insert Query
         query = f'''
-            INSERT INTO walmart (`Invoice ID`, Branch, City, `Customer type`, `Product line`, `Unit price`, Quantity, `Tax_5%`, Total, Date, Payment, Rating)
+            INSERT INTO walmart (`Invoice ID`, Branch, City, `Customer type`, `Product line`, `Unit price`, Quantity, `Tax 5%`, Total, Date, Payment, Rating)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         '''
         values = (
@@ -110,7 +110,7 @@ def edit_entry(invoice_id):
         query = '''
         UPDATE walmart
         SET Branch = %s, City = %s, `Customer type` = %s, `Product line` = %s, 
-            `Unit price` = %s, Quantity = %s, `Tax_5%` = %s, Total = %s, 
+            `Unit price` = %s, Quantity = %s, `Tax 5%` = %s, Total = %s, 
             Date = %s, Payment = %s, Rating = %s
         WHERE `Invoice ID` = %s'''
         # print(query)
